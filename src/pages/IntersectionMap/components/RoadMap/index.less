@@ -1,0 +1,30 @@
+.map_wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+
+  :global .konvajs-content {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}
+
+.box {
+  position: relative;
+
+  &_map {
+    width: 1777px;
+    height: 999px;
+  }
+}

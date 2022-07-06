@@ -1,0 +1,171 @@
+.background(@url) {
+  background: url(@url) no-repeat center/cover;
+  background-size: 100% 100%;
+}
+
+.rate_title {
+  height: 20px;
+  margin-bottom: 20px;
+  color: #52c0ff;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Source Han Sans CN;
+  line-height: 16px;
+  background: linear-gradient(0deg, #0390ff 0%, #1afaff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.online,
+.intersection {
+  position: absolute;
+  top: 128px;
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  padding: 28px 27px 10px;
+  color: #fff;
+  .background('/assets/images/platform_online.png');
+
+  .wrapper {
+    flex: 1;
+  }
+
+  @media (max-width: 1600px) {
+    top: 100px;
+  }
+
+  @media (max-width: 1400px) {
+    width: 380px;
+    padding: 24px 20px 10px;
+  }
+
+  @media (max-width: 1200px) {
+    display: none;
+  }
+}
+
+.online {
+  left: 20px;
+  height: calc(100vh - 128px - 40px);
+
+  &_image {
+    width: 83px;
+    height: 95px;
+    margin-left: 23px;
+  }
+
+  &_statistics {
+    flex: 1;
+    height: 62px;
+    margin-right: 23px;
+    padding: 0 78px 0 10px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    .background('/assets/images/platform_rate.png');
+
+    &_value {
+      margin-left: auto;
+      font-weight: 400;
+      font-size: 34px;
+    }
+  }
+
+  .chart_wrapper {
+    height: calc(100% - 95px);
+    padding-bottom: 10px;
+
+    > div {
+      height: 100% !important;
+    }
+  }
+
+  @media (max-width: 1600px) {
+    height: calc(100vh - 100px - 40px);
+
+    &_image {
+      margin-left: 0;
+    }
+
+    &_statistics {
+      margin-right: 0;
+      padding-right: 50px;
+    }
+  }
+}
+
+.intersection {
+  right: 20px;
+  height: 530px;
+  padding-bottom: 40px;
+
+  .wrapper {
+    padding: 10px 27px 0 8px;
+
+    .information_item {
+      max-width: 416px;
+      height: 70px;
+      .background('/assets/images/platform_intersection.png');
+    }
+  }
+
+  &_icon {
+    width: 84px;
+    margin-left: 0;
+
+    &_image {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &_name {
+    padding-left: 5px;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  &_number {
+    margin: 0 13% 0 auto;
+    font-weight: 400;
+    font-size: 30px;
+    font-family: Impact;
+  }
+
+  &_value {
+    margin: 0 11% 0 auto;
+    color: #25ffaf;
+    font-weight: 400;
+    font-size: 20px;
+  }
+
+  @media (max-width: 1400px) {
+    height: 460px;
+
+    .wrapper .information_item {
+      height: 60px;
+    }
+
+    &_icon {
+      width: 70px;
+
+      &_image {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    &_name {
+      font-size: 12px;
+    }
+
+    &_number {
+      font-size: 26px;
+    }
+
+    &_value {
+      font-size: 18px;
+    }
+  }
+}
