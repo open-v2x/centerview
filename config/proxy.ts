@@ -11,7 +11,7 @@ export default {
     // localhost:8000/api/** -> https://preview.pro.ant.design/api/**
     '/api': {
       // target: 'http://106.15.193.98:8080/api',
-      target: 'http://139.196.13.9:28300/api',
+      target: 'http://139.196.13.9:8080/api',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',
