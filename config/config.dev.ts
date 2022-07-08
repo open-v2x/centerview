@@ -14,7 +14,7 @@ export default defineConfig({
   },
   define: {
     'process.env.API_SERVER': '/api',
-    'process.env.MQTT_URL': 'mqtt://106.15.193.98:15675',
+    'process.env.MQTT_URL': 'mqtt://139.196.13.9:15675',
     'process.env.MQTT_PATH': '/mqtt',
     'process.env.MQTT_USERNAME': 'root',
     'process.env.MQTT_PASSWORD': 'abc@1234',
