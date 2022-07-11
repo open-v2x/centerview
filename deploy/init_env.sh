@@ -1,6 +1,6 @@
 #! /bin/bash
 
-FILE_PATH=/var/www/v2x-admin
+FILE_PATH=/var/www/centerview
 
 # shellcheck disable=SC2010
 for file_name in $(ls $FILE_PATH |grep "umi.*.js")
