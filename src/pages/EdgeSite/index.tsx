@@ -3,6 +3,7 @@ import { history } from 'umi';
 import classNames from 'classnames';
 import { ProList } from '@ant-design/pro-list';
 import PlatformHeader from '@/components/PlatformHeader';
+import { edgeSiteList } from '@/services/api';
 
 import styles from './index.less';
 
@@ -32,16 +33,15 @@ const EdgeSite: React.FC = () => {
                 resetButtonProps: { style: { display: 'none' } },
               },
             }}
-            request={async () => ({
-              // params = {}
-              data: Array.from({ length: 18 }, (itme, index) => ({
-                id: index + 1,
-                name: `站点名称 ${index + 1}`,
-              })),
-              page: 1,
-              total: 18,
-              success: true,
-            })}
+            request={async ({ name = '', current = 1, pageSize = 10 }) => {
+              const res = await edgeSiteList({ name, pageNum: current, pageSize });
+              return {
+                data: res.data,
+                page: 1,
+                total: res.total,
+                success: true,
+              };
+            }}
             pagination={{ pageSize: 10 }}
             metas={{
               title: {

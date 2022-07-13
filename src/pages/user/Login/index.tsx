@@ -8,11 +8,6 @@ import { setToken } from '@/utils/storage';
 
 import styles from './index.less';
 
-type LoginParams = {
-  username: string;
-  password: string;
-};
-
 const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
 
@@ -23,11 +18,10 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (values: LoginParams) => {
+  const handleSubmit = async (values: API.LoginParams) => {
     const { access_token: token } = await login(values);
     setToken(token);
     await fetchUserInfo();
-    /** 此方法会跳转到 redirect 参数所在的位置 */
     if (!history) return;
     const { query } = history.location;
     const { redirect } = query as { redirect: string };
@@ -42,7 +36,7 @@ const Login: React.FC = () => {
       <LoginForm
         logo={<>{t('OpenV2X Central Portal')}</>}
         onFinish={async (values) => {
-          await handleSubmit(values as LoginParams);
+          await handleSubmit(values as API.LoginParams);
         }}
       >
         <p>{t('Platform Login')}</p>

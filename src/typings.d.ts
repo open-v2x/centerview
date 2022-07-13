@@ -24,3 +24,13 @@ declare let ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION: 'site' | undefine
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
 
 declare function t(key: string, { [key as string]: string }?): string & React.ReactNode;
+
+type RouterMatchTypes = {
+  location: {
+    query: Record<string, string>;
+    state: unknown;
+  };
+  match: {
+    params: Record<string, string>;
+  };
+};

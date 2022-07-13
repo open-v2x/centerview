@@ -3,23 +3,12 @@
 
 declare namespace API {
   type Result = {
-    msg: string;
-  };
-
-  type LoginResult<T> = Result & {
-    access_token: string;
-    token_type: string;
-  };
-
-  type PageResult<T> = Result & {
-    data: T;
+    detail: string;
   };
 
   type ListResult<T> = Result & {
-    data: {
-      data: T[];
-      total: number;
-    };
+    data: T[];
+    total: number;
   };
 
   type LoginParams = {
@@ -27,18 +16,60 @@ declare namespace API {
     password: string;
   };
 
+  type LoginResult = {
+    access_token: string;
+    token_type: string;
+  };
+
   type CurrentUser = {
+    id?: number;
+    is_active?: boolean;
     username?: string;
-    avatar?: string;
   };
 
-  type PageParams = {
-    type?: 'all' | 'page';
-    pageNum?: number;
-    pageSize?: number;
+  type EdgeSiteSearch = {
+    name?: string;
+    pageNum: number;
+    pageSize: number;
   };
 
-  type DetailParams = {
-    id: number | string;
+  type EdgeSiteItem = {
+    id: number;
+    name: string;
+  };
+
+  type DeviceListItem = {
+    id: number;
+    name: string;
+    esn: string;
+    location: {
+      lon: number;
+      lat: number;
+    };
+  };
+
+  type OnlineType = {
+    online?: number;
+    offline?: number;
+    notRegister?: number;
+  };
+
+  type OnlineRateItem = {
+    rsu: OnlineType;
+    camera: OnlineType;
+    radar: OnlineType;
+  };
+
+  type RouteInfoItem = {
+    vehicleTotal: number;
+    averageSpeed: number;
+    pedestrianTotal: number;
+    congestion: string;
+  };
+
+  type CountriesItem = {
+    code: string;
+    name: string;
+    children: County[];
   };
 }

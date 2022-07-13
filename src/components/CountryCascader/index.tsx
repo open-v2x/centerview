@@ -4,6 +4,7 @@ import { countries, rsuDeviceList } from '@/services/api';
 import type { DefaultOptionType } from 'antd/lib/select';
 
 type CountryCascaderProps = {
+  nodeId: number;
   defaultValue: string[];
   mapChange: (data?: {
     type: 1 | 2;
@@ -15,8 +16,8 @@ type CountryCascaderProps = {
 
 type DeviceListType = {
   id: number;
-  rsuName: string;
-  rsuEsn: string;
+  name: string;
+  esn: string;
   location: {
     lon: number;
     lat: number;
@@ -31,18 +32,18 @@ type RSUSelectChangeType = {
   };
 };
 
-const CountryCascader: React.FC<CountryCascaderProps> = ({ defaultValue, mapChange }) => {
+const CountryCascader: React.FC<CountryCascaderProps> = ({ nodeId, defaultValue, mapChange }) => {
   const [areaCode, setAreaCode] = useState<string>(defaultValue[defaultValue.length - 1]);
   const [deviceList, setDeviceList] = useState<DefaultOptionType[]>([]);
   const [rsuId, setRsuId] = useState<number | null>();
 
   const fetchDeviceList = async () => {
-    const res = await rsuDeviceList(areaCode);
+    const res = await rsuDeviceList(nodeId, areaCode);
     const data = res?.data.map(
-      ({ id, rsuName, rsuEsn, location: { lon: lng, lat } }: DeviceListType) => ({
-        label: `${rsuName} (Esn：${rsuEsn})`,
+      ({ id, name, esn, location: { lon: lng, lat } }: DeviceListType) => ({
+        label: `${name} (Esn：${esn})`,
         value: id,
-        extra: { rsuEsn, lng, lat },
+        extra: { rsuEsn: esn, lng, lat },
       }),
     );
     if (data?.length) {

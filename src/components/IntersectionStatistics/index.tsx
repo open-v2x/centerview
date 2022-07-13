@@ -6,18 +6,8 @@ import { onlineRate, routeInfo } from '@/services/api';
 import styles from './index.less';
 
 // 设备在线率
-type OnlineType = {
-  online?: number;
-  offline?: number;
-  notRegister?: number;
-};
-type OnlineRateType = {
-  rsu: OnlineType;
-  camera: OnlineType;
-  radar: OnlineType;
-};
 const DeviceOnlineRate: React.FC = () => {
-  const [rateInfo, setRateInfo] = useState<OnlineRateType>({
+  const [rateInfo, setRateInfo] = useState<API.OnlineRateItem>({
     rsu: { online: 0, offline: 0, notRegister: 0 },
     camera: { online: 0, offline: 0, notRegister: 0 },
     radar: { online: 0, offline: 0, notRegister: 0 },
@@ -25,7 +15,7 @@ const DeviceOnlineRate: React.FC = () => {
 
   const fetchOnlineRate = async () => {
     const res = await onlineRate();
-    setRateInfo(res?.data);
+    setRateInfo(res);
   };
 
   useEffect(() => {
@@ -65,14 +55,8 @@ const DeviceOnlineRate: React.FC = () => {
 };
 
 // 路口信息
-type RouteInfoType = {
-  vehicleTotal: number;
-  averageSpeed: number;
-  pedestrianTotal: number;
-  congestion: string;
-};
 const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
-  const [info, setInfo] = useState<RouteInfoType>({
+  const [info, setInfo] = useState<API.RouteInfoItem>({
     vehicleTotal: 0,
     averageSpeed: 0,
     pedestrianTotal: 0,

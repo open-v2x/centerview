@@ -11,7 +11,7 @@ type MarkerType = {
   lngLat: [number, number] | [];
 };
 
-const CloudPlatform: React.FC = () => {
+const CloudPlatform: React.FC<RouterMatchTypes> = ({ location: { query } }) => {
   const [markerList, setMarkerList] = useState<MarkerType>();
 
   const mapLngLat = (data?: MarkerType) => {
@@ -22,6 +22,7 @@ const CloudPlatform: React.FC = () => {
     <div className="cloud_platform">
       <PlatformHeader back>
         <CountryCascader
+          nodeId={+query.id}
           defaultValue={['CN', '320000', '320100', '320115']}
           mapChange={mapLngLat}
         />
@@ -53,6 +54,7 @@ const CloudPlatform: React.FC = () => {
                         type: `${markerList.type}`,
                         id: `${markerList.rsuId}`,
                         esn: `${markerList.rsuEsn}`,
+                        nodeId: query.id,
                       },
                     })
                   }
