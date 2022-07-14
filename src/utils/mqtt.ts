@@ -4,10 +4,10 @@ export type MqttConnOpt = mqtt.IClientOptions;
 
 export declare type OnMessageFunc = (topic: string, payload: Buffer) => void;
 
-declare class Topic {
-  public topic: string;
-  public qos: 0 | 1 | 2;
-}
+type Topic = {
+  topic: string;
+  qos: 0 | 1 | 2;
+};
 
 export class MQTT {
   mqclient: mqtt.MqttClient | undefined;
