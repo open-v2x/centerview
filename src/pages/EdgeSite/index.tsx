@@ -42,7 +42,7 @@ const EdgeSite: React.FC = () => {
                 success: true,
               };
             }}
-            pagination={{ pageSize: 10 }}
+            pagination={{ pageSize: 10, hideOnSinglePage: true }}
             metas={{
               title: {
                 dataIndex: 'name',
