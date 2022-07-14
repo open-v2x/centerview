@@ -14,8 +14,8 @@ const DeviceOnlineRate: React.FC = () => {
   });
 
   const fetchOnlineRate = async () => {
-    const res = await onlineRate();
-    setRateInfo(res);
+    const { data } = await onlineRate();
+    setRateInfo(data);
   };
 
   useEffect(() => {

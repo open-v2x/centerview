@@ -41,7 +41,7 @@ export async function rsuDeviceList(nodeId: number, areaCode: string) {
 
 // 设备在线率
 export async function onlineRate() {
-  return request<API.OnlineRateItem>(`/homes/online_rate`, {
+  return request<{ data: API.OnlineRateItem }>(`/homes/online_rate`, {
     method: 'get',
   });
 }
