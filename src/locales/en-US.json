@@ -25,5 +25,7 @@
   "Please select an edge location": "Please select an edge location",
   "EDGE_SITE_TIPS": "Select the edge site to be viewed, and click '{{value}}' to view the intersection information of the site",
   "Go to [Regional Edge Portal]": "Go to [Regional Edge Portal]",
-  "Edge Site Name": "Edge Site Name"
+  "Edge Site Name": "Edge Site Name",
+  "Free flow": "Free flow",
+  "Congestion": "Congestion"
 }
