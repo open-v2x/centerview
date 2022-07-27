@@ -152,25 +152,25 @@ const RoadImage: React.FC<{ esn: string; nodeId: string }> = ({ esn, nodeId }) =
   const [CWData, setCWData] = useState<any[]>([]);
   const { run: clearCWData } = useDebounceFn(() => {
     setCWData([]);
-  }, 1000);
+  }, 500);
 
   // 协同换道
   const [CLCData, setCLCData] = useState<any[]>([]);
   const { run: clearCLCData } = useDebounceFn(() => {
     setCLCData([]);
-  }, 1000);
+  }, 500);
 
   // 逆向超车
   const [DNPData, setDNPData] = useState<any[]>([]);
   const { run: clearDNPData } = useDebounceFn(() => {
     setDNPData([]);
-  }, 1000);
+  }, 500);
 
   // 数据共享
   const [SDSData, setSDSData] = useState<any[]>([]);
   const { run: clearSDSData } = useDebounceFn(() => {
     setSDSData([]);
-  }, 1000);
+  }, 500);
 
   useEffect(() => {
     const mqtt = new MQTT(process.env.MQTT_URL!);

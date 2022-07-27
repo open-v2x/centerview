@@ -75,6 +75,10 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
   }, []);
 
   const intersectionStyle = (style = styles.intersection_number) => classNames(style, 'f-middle');
+  const congestionMap = {
+    'free flow': t('Free flow'),
+    congestion: t('Congestion'),
+  };
   const intersectionMap = [
     {
       icon: 'platform_vehicle.png',
@@ -97,7 +101,7 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
     {
       icon: 'platform_congestion.png',
       name: t('Congestion situation'),
-      value: info.congestion ? t(info.congestion) : info.congestion,
+      value: congestionMap[info.congestion] || '',
       style: intersectionStyle(styles.intersection_value),
     },
   ];

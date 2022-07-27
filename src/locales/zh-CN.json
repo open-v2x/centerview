@@ -21,10 +21,11 @@
   "Please input your username": "请输入用户名",
   "Password": "密码",
   "Please input your password": "请输入密码",
-  "OpenV2X Central Portal": "OpenV2X Central Portal",
+  "OpenV2X Central Portal": "OpenV2X 云控中心",
   "Please select an edge location": "请选择边缘站点",
   "EDGE_SITE_TIPS": "选择需查看的边缘站点，点击‘{{value}}’，可查看该站点的路口信息",
   "Go to [Regional Edge Portal]": "前往【区域 Edge Portal】",
   "Edge Site Name": "边缘站点名称",
-  "Unknown": "未知"
+  "Free flow": "自由流",
+  "Congestion": "拥堵"
 }
