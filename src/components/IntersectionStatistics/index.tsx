@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import OnlineRatePie from '../OnlineRatePie';
 import { onlineRate, routeInfo } from '@/services/api';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
 
 // 设备在线率
 const DeviceOnlineRate: React.FC = () => {
+  const [show, setShow] = useState(true);
   const [rateInfo, setRateInfo] = useState<API.OnlineRateItem>({
     rsu: { online: 0, offline: 0, notRegister: 0 },
     camera: { online: 0, offline: 0, notRegister: 0 },
@@ -30,7 +32,10 @@ const DeviceOnlineRate: React.FC = () => {
     { icon: 'platform_radar.png', name: t('Radar'), value: rateInfo.radar },
   ];
   return (
-    <div className={styles.online}>
+    <div className={classNames(styles.online, show ? styles.show : styles.hide)}>
+      <a className={styles.left_icon} onClick={() => setShow(!show)}>
+        {show ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+      </a>
       <div className={styles.rate_title}>{t('Device online rate')}</div>
       <div className={classNames(styles.wrapper, 'f-column')}>
         {rateMap.map(({ icon, name, value: { online = 0, offline = 0, notRegister = 0 } }) => (
@@ -56,6 +61,7 @@ const DeviceOnlineRate: React.FC = () => {
 
 // 路口信息
 const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
+  const [show, setShow] = useState(true);
   const [info, setInfo] = useState<API.RouteInfoItem>({
     vehicleTotal: 0,
     averageSpeed: 0,
@@ -106,7 +112,10 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
     },
   ];
   return (
-    <div className={styles.intersection}>
+    <div className={classNames(styles.intersection, show ? styles.show : styles.hide)}>
+      <a className={styles.right_icon} onClick={() => setShow(!show)}>
+        {show ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </a>
       <div className={styles.rate_title}>{t('Intersection information')}</div>
       <div className={classNames(styles.wrapper, 'f-column f-j-between')}>
         {intersectionMap.map(({ icon, name, value, style }) => (
