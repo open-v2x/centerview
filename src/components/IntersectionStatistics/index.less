@@ -25,10 +25,19 @@
   width: 440px;
   padding: 28px 27px 10px;
   color: #fff;
+  transition: transform 0.3s;
   .background('/assets/images/platform_online.png');
 
   .wrapper {
     flex: 1;
+  }
+
+  .left_icon,
+  .right_icon {
+    position: absolute;
+    top: 10px;
+    color: #2feeff;
+    font-size: 36px;
   }
 
   @media (max-width: 1600px) {
@@ -79,6 +88,18 @@
     > div {
       height: 100% !important;
     }
+  }
+
+  .left_icon {
+    right: -38px;
+  }
+
+  &.show {
+    transform: translateX(0);
+  }
+
+  &.hide {
+    transform: translateX(calc(-100% - 20px));
   }
 
   @media (max-width: 1600px) {
@@ -138,6 +159,18 @@
     color: #25ffaf;
     font-weight: 400;
     font-size: 18px;
+  }
+
+  .right_icon {
+    left: -38px;
+  }
+
+  &.show {
+    transform: translateX(0);
+  }
+
+  &.hide {
+    transform: translateX(calc(100% + 20px));
   }
 
   @media (max-width: 1400px) {
