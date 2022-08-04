@@ -9,25 +9,11 @@
 export default {
   dev: {
     '/api': {
-      target: 'http://139.196.13.9:8080/api',
+      target: 'http://47.100.126.13:8080/api',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',
       },
     },
   },
-  // test: {
-  //   '/api/': {
-  //     target: '',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^': '' },
-  //   },
-  // },
-  // pre: {
-  //   '/api/': {
-  //     target: '',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^': '' },
-  //   },
-  // },
 };
