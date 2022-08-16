@@ -42,13 +42,13 @@
     yarn install
     ```
 
-> If you have trouble downloading the dependencies, try the following
+> 如果因为网络问题安装依赖失败，请尝试设置镜像源
 
-> `npm config set registry https://registry.npm.taobao.org`
+> `npm config set registry https://registry.npmmirror.com`
 
 > or
 
-> `yarn config set registry https://registry.npm.taobao.org`
+> `yarn config set registry https://registry.npmmirror.com`
 
 - 准备好可用的后端
 
