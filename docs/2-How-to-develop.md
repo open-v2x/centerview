@@ -17,12 +17,14 @@
 
 - node 环境
 
-  - package.json 中要求：`"node": ">=10.0.0"`
+  - package.json 中要求：`"node": ">=14.17.0"`
   - 验证 nodejs 版本
 
     ```shell
     node -v
     ```
+
+    > 推荐使用 [nvm](https://github.com/nvm-sh/nvm) 管理 node 版本
 
 - yarn
 
@@ -39,6 +41,14 @@
     ```shell
     yarn install
     ```
+
+> If you have trouble downloading the dependencies, try the following
+
+> `npm config set registry https://registry.npm.taobao.org`
+
+> or
+
+> `yarn config set registry https://registry.npm.taobao.org`
 
 - 准备好可用的后端
 
