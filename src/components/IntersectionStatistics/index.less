@@ -10,10 +10,20 @@
   font-weight: bold;
   font-size: 20px;
   font-family: Source Han Sans CN;
-  line-height: 16px;
+  line-height: 20px;
   background: linear-gradient(0deg, #0390ff 0%, #1afaff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.rate_content {
+  height: 100%;
+  overflow: -moz-scrollbars-none;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 }
 
 .online,
@@ -59,14 +69,14 @@
   height: calc(100vh - 128px - 40px);
 
   &_image {
-    width: 83px;
-    height: 95px;
+    width: 55px;
+    height: 65px;
     margin-left: 23px;
   }
 
   &_statistics {
     flex: 1;
-    height: 62px;
+    height: 55px;
     margin-right: 23px;
     padding: 0 78px 0 10px;
     color: #fff;
@@ -82,12 +92,19 @@
   }
 
   .chart_wrapper {
-    height: calc(100% - 95px);
-    padding-bottom: 10px;
-
+    height: 100px;
     > div {
       height: 100% !important;
     }
+  }
+
+  .camera_address {
+    display: inline-block;
+    margin-top: 10px;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    margin-left: 46px;
+    font-size: 12px;
   }
 
   .left_icon {

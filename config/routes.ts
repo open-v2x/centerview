@@ -34,6 +34,10 @@ export default [
     redirect: '/site',
   },
   {
+    path: '/camera',
+    component: './CameraStream',
+  },
+  {
     component: './404',
   },
 ];
