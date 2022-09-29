@@ -2,6 +2,7 @@
   "RSU online rate": "RSU 在线率",
   "Camera": "路侧摄像头",
   "Radar": "毫米波雷达",
+  "Lidar": "激光雷达",
   "Device online rate": "设备在线率",
   "Vehicles (unit)": "车辆总数(辆)",
   "Average speed (km/h)": "平均行驶速度(km/h)",

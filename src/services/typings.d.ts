@@ -58,6 +58,7 @@ declare namespace API {
     rsu: OnlineType;
     camera: OnlineType;
     radar: OnlineType;
+    lidar: OnlineType;
   };
 
   type RouteInfoItem = {
@@ -71,5 +72,12 @@ declare namespace API {
     code: string;
     name: string;
     children: County[];
+  };
+
+  type OnlineCameras = {
+    id: number;
+    sn: string;
+    name: string;
+    streamUrl: string;
   };
 }
