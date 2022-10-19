@@ -38,6 +38,10 @@ export default [
     component: './CameraStream',
   },
   {
+    path: '/cloud_lidar',
+    component: './CloudLidar',
+  },
+  {
     component: './404',
   },
 ];
