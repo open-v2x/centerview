@@ -75,8 +75,7 @@
     "react-i18next": "^11.16.9",
     "react-konva": "^17.0.2-6",
     "three": "^0.145.0",
-    "umi": "^3.5.0",
-    "video.js": "^7.20.3"
+    "umi": "^3.5.0"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",

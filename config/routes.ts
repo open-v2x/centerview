@@ -34,10 +34,6 @@ export default [
     redirect: '/site',
   },
   {
-    path: '/camera',
-    component: './CameraStream',
-  },
-  {
     path: '/cloud_lidar',
     component: './CloudLidar',
   },

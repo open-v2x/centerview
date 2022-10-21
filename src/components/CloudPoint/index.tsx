@@ -13,7 +13,7 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
   const timerRef = useRef<NodeJS.Timer>();
 
   // dom 节点
-  const domRef = useRef<HTMLElement>(null);
+  const domRef = useRef<HTMLDivElement>(null);
   // 创建场景
   const scene = useMemo(() => {
     return new THREE.Scene();
