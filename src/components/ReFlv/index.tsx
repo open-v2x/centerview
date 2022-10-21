@@ -1,95 +1,80 @@
 import Mpegts from 'mpegts.js';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import cls from './index.module.less';
 
 interface FlvProps {
   data: Mpegts.MediaDataSource;
-  config?: Mpegts.Config;
+  config: Mpegts.Config | undefined;
+  onReady: (play: any) => void;
 }
 
 /**
  * react component wrap flv.js
  */
-const ReFlv: React.FC<FlvProps> = (props) => {
+const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
   const flvRef = useRef<Mpegts.Player>();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [lastDecodedFrame, setLastDecodedFrame] = useState(0);
 
-  // const oneFrame = {
-  //   x: '20',
-  //   y: '30',
-  //   width: 40,
-  //   height: 50,
-  // };
+  const initProgress = useCallback(() => {
+    if (flvRef.current) {
+      const end = flvRef.current.buffered.end(0);
+      const delta = end - flvRef.current.currentTime;
 
-  // const clearCanvas = () => {
-  //   const canvas = document.getElementById('canvas');
-  //   const ctx = canvas?.getContext('2d');
-  //   ctx.clearRect(0, 0, canvas?.width, canvas?.height);
-  // };
+      // 延迟过大，通过跳帧的方式更新视频
+      if (delta > 10 || delta < 0) {
+        flvRef.current.currentTime = flvRef.current.buffered.end(0) - 1;
+        return;
+      }
 
-  // const handleOneFrame = () => {
-  //   const canvas = document.getElementById('canvas');
-  //   const ctx = canvas?.getContext('2d');
-  //   clearCanvas();
+      // 追帧
+      if (delta > 1) {
+        videoRef.current!.playbackRate = 1.1;
+      } else {
+        videoRef.current!.playbackRate = 1;
+      }
+    }
+  }, []);
 
-  //   ctx.lineWidth = 1;
-  //   ctx.strokeStyle = 'red';
-  //   ctx.strokeRect(oneFrame.x, oneFrame.y, oneFrame.width, oneFrame.height);
-  // };
+  const stopAll = useCallback(() => {
+    flvRef.current?.pause();
+    flvRef.current?.unload();
+    flvRef.current?.detachMediaElement();
+    flvRef.current?.destroy();
+    flvRef.current = undefined;
+  }, []);
 
-  const CreatePlayer = () => {
+  const CreatePlayer = useCallback(() => {
+    const { data, config, onReady } = props;
     if (Mpegts.getFeatureList().mseLivePlayback) {
-      const { data, config } = props;
       flvRef.current = Mpegts.createPlayer(data, config);
       if (videoRef.current) {
         flvRef.current.attachMediaElement(videoRef.current);
         flvRef.current.load();
-        setTimeout(() => {
-          if (flvRef.current) {
-            flvRef.current.play();
-          }
-        });
-        flvRef.current.on('statistic_info', (res) => {
-          if (lastDecodedFrame === 0) {
-            setLastDecodedFrame(res.decodedFrames);
-            return;
-          }
-          if (lastDecodedFrame !== res.decodedFrames) {
-            setLastDecodedFrame(res.decodedFrames);
-          } else {
-            setLastDecodedFrame(0);
-            if (flvRef.current) {
-              flvRef.current.pause();
-              flvRef.current.unload();
-              flvRef.current.detachMediaElement();
-              flvRef.current.destroy();
-              flvRef.current = undefined;
-              CreatePlayer();
-            }
-          }
-        });
-        // setTimeout(() => {
-        //   handleOneFrame();
-        // }, 2000);
+        videoRef.current.addEventListener('progress', initProgress, false);
+
+        if (onReady) {
+          onReady(videoRef.current);
+        }
       }
     }
-  };
+  }, [initProgress, props]);
 
   useEffect(() => {
     CreatePlayer();
-  }, [props]);
+    const videoElement = videoRef.current;
+    return () => {
+      videoElement?.removeEventListener('progress', initProgress, false);
+      stopAll();
+    };
+  }, [CreatePlayer, initProgress, props, stopAll]);
 
   return (
     <div className={cls.flv_player_content}>
       <video
         controls={true}
-        style={Object.assign({
-          width: '100%',
-        })}
         ref={videoRef}
+        controlsList={'nodownload noremoteplayback noplaybackrate'}
       />
-      {/* <canvas className={cls.canvas} id="canvas" width={668} height={422} /> */}
     </div>
   );
 };

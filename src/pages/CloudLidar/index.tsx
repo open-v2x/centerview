@@ -1,6 +1,6 @@
 import CloudPoint from '@/components/CloudPoint';
 const CloudLidar = () => {
-  const webSocketUrl = `ws://172.16.201.233:8000/ws`;
+  const webSocketUrl = process.env.WEBSOCKET_URL!;
   return (
     <div>
       <CloudPoint wsUrl={webSocketUrl} />
