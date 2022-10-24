@@ -61,9 +61,19 @@ export async function downloadMapConfig(id: number) {
   });
 }
 
-// 根据 rsnId 获取对应绑定的 cameras
+// 根据 rsnEsn 获取对应绑定的 cameras
 export async function getCamerasByRsuEsn(rsuEsn: number | string) {
   return request<any>(`/cameras`, {
+    method: 'GET',
+    params: {
+      rsuEsn,
+    },
+  });
+}
+
+// 根据 rsuEsn 获取对应绑定的 lidars
+export async function getLidarsByRsuEsn(rsuEsn: number | string) {
+  return request<any>(`/lidars`, {
     method: 'GET',
     params: {
       rsuEsn,

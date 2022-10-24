@@ -5,10 +5,13 @@ import './index.less';
 
 export interface CloudPointProps {
   wsUrl: string;
+  width: number;
+  height: number;
+  isFixedAspect: boolean;
 }
 
 const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
-  const { wsUrl } = props;
+  const { wsUrl, width, height, isFixedAspect = false } = props;
   const ws = useRef<WebSocket | null>(null);
   const timerRef = useRef<NodeJS.Timer>();
 
@@ -81,7 +84,7 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
 
   // 初始化相机
   const initCamera = useCallback(() => {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = isFixedAspect ? width / height : window.innerWidth / window.innerHeight;
     camera.fov = 750;
     camera.near = 0.1;
     camera.far = 2000000;
@@ -90,17 +93,17 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
     // 设置相机面向 xyz坐标观察
     camera.lookAt(0, 100000, -150000);
     camera.updateProjectionMatrix();
-  }, [camera]);
+  }, [camera, height, isFixedAspect, width]);
 
   // 初始化渲染场景
   const initRenderer = useCallback(() => {
     // 设置分辨率为当前设备的分辨率，解决场景模糊，抗锯齿的一种很好的方法
     renderer.setPixelRatio(window.devicePixelRatio);
     // 设置画布大小
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(width, height);
     // 挂载 DOM
     domRef.current?.appendChild(renderer.domElement);
-  }, [renderer, domRef]);
+  }, [renderer, width, height]);
 
   // 初始化交互
   const initControls = useCallback(() => {
@@ -119,11 +122,13 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
 
   // 根据页面大小进行重绘
   const onWindowResize = useCallback(() => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renders();
-  }, []);
+    if (!isFixedAspect) {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renders();
+    }
+  }, [camera, isFixedAspect, renderer, renders]);
 
   useEffect(() => {
     initCamera();

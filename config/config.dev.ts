@@ -19,6 +19,6 @@ export default defineConfig({
     'process.env.MQTT_USERNAME': 'root',
     'process.env.MQTT_PASSWORD': 'abc@1234',
     'process.env.AMAP_KEY': 'a7a90e05a37d3f6bf76d4a9032fc9129',
-    'process.env.WEBSCOKET_URL': 'ws://150.158.47.136:8000/ws',
+    'process.env.WEBSOCKET_URL': 'ws://47.100.126.13:8000/ws/127.0.0.1',
   },
 });
