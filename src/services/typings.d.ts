@@ -59,6 +59,7 @@ declare namespace API {
     camera: OnlineType;
     radar: OnlineType;
     lidar: OnlineType;
+    spat: OnlineType;
   };
 
   type RouteInfoItem = {

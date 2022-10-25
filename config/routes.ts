@@ -34,10 +34,6 @@ export default [
     redirect: '/site',
   },
   {
-    path: '/cloud_lidar',
-    component: './CloudLidar',
-  },
-  {
     component: './404',
   },
 ];
