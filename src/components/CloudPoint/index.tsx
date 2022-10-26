@@ -4,13 +4,14 @@ import { OrbitControls } from '@three-ts/orbit-controls';
 import './index.less';
 
 export interface CloudPointProps {
+  wsUrl: string;
   width: number;
   height: number;
   isFixedAspect: boolean;
 }
 
 const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
-  const { width, height, isFixedAspect = false } = props;
+  const { wsUrl, width, height, isFixedAspect = false } = props;
   const ws = useRef<WebSocket | null>(null);
   const timerRef = useRef<NodeJS.Timer>();
 
@@ -45,22 +46,18 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
   scene.add(cloud);
 
   // 更新云点数据
-  const updatePoint = useCallback(
-    (pointJson: string) => {
-      const point = [];
-      const pointsArr = JSON.parse(pointJson);
-      for (let i = 0; i < pointsArr.length; i += 3) {
-        point.push(new THREE.Vector3(pointsArr[i], pointsArr[i + 1], pointsArr[i + 2]));
-      }
-      geometry.setFromPoints(point);
-    },
-    [geometry],
-  );
-
+  const updatePoint = (pointJson: string) => {
+    const point = [];
+    const pointsArr = JSON.parse(pointJson);
+    for (let i = 0; i < pointsArr.length; i += 3) {
+      point.push(new THREE.Vector3(pointsArr[i], pointsArr[i + 1], pointsArr[i + 2]));
+    }
+    geometry.setFromPoints(point);
+  };
   // 初始化webSocket
   const initWebSocket = useCallback(() => {
     if (!ws.current) {
-      ws.current = new WebSocket(process.env.WEBSOCKET_URL!);
+      ws.current = new WebSocket(wsUrl);
       ws.current.onopen = () => {
         if (ws.current?.OPEN) {
           ws.current?.send('connected');
@@ -81,7 +78,8 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
         ws.current = null;
       };
     }
-  }, [updatePoint]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wsUrl]);
 
   // 初始化相机
   const initCamera = useCallback(() => {

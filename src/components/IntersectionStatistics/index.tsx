@@ -279,6 +279,8 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
 };
 
 const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
+  const wsUrl = process.env.WEBSOCKET_URL!;
+
   const cameraModalRef: any = useRef(null);
   const cloudPointModalRef: any = useRef(null);
   const deviceOnlineRateRef: any = useRef(null);
@@ -340,7 +342,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
         ref={cloudPointModalRef}
         title={'展示云点图'}
         width={800}
-        component={<CloudPoint height={450} width={780} isFixedAspect={true} />}
+        component={<CloudPoint wsUrl={wsUrl} height={450} width={780} isFixedAspect={true} />}
         footer={null}
         onCloseCallback={null}
       />
