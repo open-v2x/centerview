@@ -168,7 +168,7 @@ const DeviceOnlineRate = forwardRef(
       },
       { icon: 'platform_radar.png', name: t('Radar'), value: rateInfo.radar },
       { icon: 'platform_radar.png', name: t('Lidar'), value: rateInfo.lidar, footer: footerLidar },
-      { icon: 'platform_camera.png', name: t('SPAT'), value: rateInfo.spat },
+      { icon: 'platform_spat.png', name: t('SPAT'), value: rateInfo.spat },
     ];
 
     return (
@@ -279,8 +279,6 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
 };
 
 const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
-  const ws = process.env.WEBSOCKET_URL!;
-
   const cameraModalRef: any = useRef(null);
   const cloudPointModalRef: any = useRef(null);
   const deviceOnlineRateRef: any = useRef(null);
@@ -342,7 +340,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
         ref={cloudPointModalRef}
         title={'展示云点图'}
         width={800}
-        component={<CloudPoint wsUrl={ws} height={450} width={752} isFixedAspect={true} />}
+        component={<CloudPoint height={450} width={780} isFixedAspect={true} />}
         footer={null}
         onCloseCallback={null}
       />
