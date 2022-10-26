@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import type { ReactNode } from 'react';
 import { forwardRef, useImperativeHandle } from 'react';
 import { useState } from 'react';
-
+import styles from './index.module.less';
 interface DisplayModalProps {
   component: ReactNode;
   width: number;
@@ -36,6 +36,7 @@ const DisplayModal = forwardRef(
         destroyOnClose={true}
         onCancel={closeModal}
         footer={footer}
+        wrapClassName={styles.modal_container}
       >
         {component}
       </Modal>
