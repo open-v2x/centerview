@@ -168,7 +168,7 @@ const DeviceOnlineRate = forwardRef(
       },
       { icon: 'platform_radar.png', name: t('Radar'), value: rateInfo.radar },
       { icon: 'platform_radar.png', name: t('Lidar'), value: rateInfo.lidar, footer: footerLidar },
-      { icon: 'platform_spat.png', name: t('SPAT'), value: rateInfo.spat },
+      { icon: 'platform_camera.png', name: t('SPAT'), value: rateInfo.spat },
     ];
 
     return (
