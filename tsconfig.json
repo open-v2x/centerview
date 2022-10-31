@@ -19,7 +19,7 @@
     "experimentalDecorators": true,
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "center-src/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"]
     }
   },

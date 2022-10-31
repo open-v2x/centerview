@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Group, Image as KonvaImage, Layer, Line, Ellipse, Stage } from 'react-konva';
 import { useDebounceFn } from '@umijs/hooks';
-import { MQTT } from '@/utils/mqtt';
+import { MQTT } from 'center-src/utils/mqtt';
+import imgMotor from 'center-src/assets/images/motor.png';
+import imgNonMotor from 'center-src/assets/images/non_motor.png';
+import imgPedestrian from 'center-src/assets/images/pedestrian.png';
 
 type Point = { x: number; y: number };
 
@@ -12,9 +15,9 @@ const Track: React.FC<Point & { type: 'motor' | 'non-motor' | 'pedestrian'; rota
   rotation,
 }) => {
   const imageMap = {
-    motor: '/assets/images/motor.png',
-    'non-motor': '/assets/images/non_motor.png',
-    pedestrian: '/assets/images/pedestrian.png',
+    motor: imgMotor,
+    'non-motor': imgNonMotor,
+    pedestrian: imgPedestrian,
   };
   const image = new Image();
   image.src = imageMap[type];
@@ -37,7 +40,7 @@ const Track: React.FC<Point & { type: 'motor' | 'non-motor' | 'pedestrian'; rota
 
 const WarningImage: React.FC<Point> = ({ x, y }) => {
   const image = new Image();
-  image.src = '/assets/images/event_warn.png';
+  image.src = '#center/images/event_warn.png';
   const iconWidth = 15;
 
   return (

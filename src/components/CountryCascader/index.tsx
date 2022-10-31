@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ProFormCascader, ProFormSelect } from '@ant-design/pro-form';
-import { countries, rsuDeviceList } from '@/services/api';
+import { countries, rsuDeviceList } from 'center-src/services/api';
 import type { DefaultOptionType } from 'antd/lib/select';
 
 type CountryCascaderProps = {

@@ -1,8 +1,8 @@
 import React from 'react';
-import PlatformHeader from '@/components/PlatformHeader';
+import PlatformHeader from 'center-src/components/PlatformHeader';
 import RoadMap from './components/RoadMap';
 import RoadMapXml from './components/RoadMapXml';
-import IntersectionStatistics from '@/components/IntersectionStatistics';
+import IntersectionStatistics from 'center-src/components/IntersectionStatistics';
 
 const IntersectionMap: React.FC<RouterMatchTypes> = ({ location: { query } }) => {
   const { type, id, esn, nodeId } = query;

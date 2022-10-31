@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import OnlineRatePie from '../OnlineRatePie';
-import { getCamerasByRsuEsn, getLidarsByRsuEsn, onlineRate, routeInfo } from '@/services/api';
+import {
+  getCamerasByRsuEsn,
+  getLidarsByRsuEsn,
+  onlineRate,
+  routeInfo,
+} from 'center-src/services/api';
 import {
   CaretDownOutlined,
   CaretUpOutlined,
@@ -11,12 +16,20 @@ import {
 
 import styles from './index.less';
 import DisplayModal from '../DisplayModal';
-import LiveStream from '@/components/ReFlv';
+import LiveStream from 'center-src/components/ReFlv';
 import { Button } from 'antd';
 import { forwardRef } from 'react';
 import { useImperativeHandle } from 'react';
 import CloudPoint from '../CloudPoint';
 
+import imgRsu from 'center-src/assets/images/platform_rsu.png';
+import imgCamera from 'center-src/assets/images/platform_camera.png';
+import imgRadar from 'center-src/assets/images/platform_radar.png';
+import imgSpat from 'center-src/assets/images/platform_spat.png';
+import imgVehicle from 'center-src/assets/images/platform_vehicle.png';
+import imgSpeed from 'center-src/assets/images/platform_speed.png';
+import imgPedestrian from 'center-src/assets/images/platform_pedestrian.png';
+import imgCongestion from 'center-src/assets/images/platform_congestion.png';
 // 设备在线率
 const DeviceOnlineRate = forwardRef(
   (
@@ -159,16 +172,16 @@ const DeviceOnlineRate = forwardRef(
     };
 
     const rateMap = [
-      { icon: 'platform_rsu.png', name: t('RSU online rate'), value: rateInfo.rsu },
+      { icon: imgRsu, name: t('RSU online rate'), value: rateInfo.rsu },
       {
-        icon: 'platform_camera.png',
+        icon: imgCamera,
         name: t('Camera'),
         value: rateInfo.camera,
         footer: footerCamera,
       },
-      { icon: 'platform_radar.png', name: t('Radar'), value: rateInfo.radar },
-      { icon: 'platform_radar.png', name: t('Lidar'), value: rateInfo.lidar, footer: footerLidar },
-      { icon: 'platform_spat.png', name: t('SPAT'), value: rateInfo.spat },
+      { icon: imgRadar, name: t('Radar'), value: rateInfo.radar },
+      { icon: imgRadar, name: t('Lidar'), value: rateInfo.lidar, footer: footerLidar },
+      { icon: imgSpat, name: t('SPAT'), value: rateInfo.spat },
     ];
 
     return (
@@ -183,7 +196,7 @@ const DeviceOnlineRate = forwardRef(
               ({ icon, name, value: { online = 0, offline = 0, notRegister = 0 }, footer }) => (
                 <div key={name as string} className={classNames(styles.wrapper, 'f-column')}>
                   <div className="f f-a-center">
-                    <img className={styles.online_image} src={`/assets/images/${icon}`} alt="" />
+                    <img className={styles.online_image} src={icon} alt="" />
                     <div className={classNames(styles.online_statistics, 'f f-a-center')}>
                       {name}:
                       <div className={styles.online_statistics_value}>
@@ -233,25 +246,25 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
   };
   const intersectionMap = [
     {
-      icon: 'platform_vehicle.png',
+      icon: imgVehicle,
       name: t('Vehicles (unit)'),
       value: info.vehicleTotal || 0,
       style: intersectionStyle(),
     },
     {
-      icon: 'platform_speed.png',
+      icon: imgSpeed,
       name: t('Average speed (km/h)'),
       value: info.averageSpeed || 0,
       style: intersectionStyle(),
     },
     {
-      icon: 'platform_pedestrian.png',
+      icon: imgPedestrian,
       name: t('Pedestrians'),
       value: info.pedestrianTotal || 0,
       style: intersectionStyle(),
     },
     {
-      icon: 'platform_congestion.png',
+      icon: imgCongestion,
       name: t('Congestion situation'),
       value: congestionMap[info.congestion] || '',
       style: intersectionStyle(styles.intersection_value),
@@ -267,7 +280,7 @@ const IntersectionInformation: React.FC<{ esn: string }> = ({ esn }) => {
         {intersectionMap.map(({ icon, name, value, style }) => (
           <div key={name as string} className={classNames(styles.information_item, 'f')}>
             <div className={classNames(styles.intersection_icon, 'f-middle')}>
-              <img className={styles.intersection_icon_image} src={`/assets/images/${icon}`} />
+              <img className={styles.intersection_icon_image} src={icon} />
             </div>
             <div className={classNames(styles.intersection_name, 'f f-a-center')}>{name}：</div>
             <div className={style}>{value}</div>

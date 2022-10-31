@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { history } from 'umi';
 import { Map, APILoader, ScaleControl, ToolBarControl, Marker } from '@uiw/react-amap';
-import PlatformHeader from '@/components/PlatformHeader';
-import CountryCascader from '@/components/CountryCascader';
-
+import PlatformHeader from 'center-src/components/PlatformHeader';
+import CountryCascader from 'center-src/components/CountryCascader';
+import imgLocation from 'center-src/assets/images/location.png';
 type MarkerType = {
   type: number;
   rsuId: number;
@@ -42,7 +42,7 @@ const CloudPlatform: React.FC<RouterMatchTypes> = ({ location: { query } }) => {
                   icon={
                     new AMap.Icon({
                       imageSize: new AMap.Size(36, 36),
-                      image: '/assets/images/location.png',
+                      image: imgLocation,
                     })
                   }
                   offset={new AMap.Pixel(-18, -36)}

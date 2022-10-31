@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stage, Layer, Rect, Line, Group } from 'react-konva';
 import { useRequest } from 'umi';
-import { downloadMapConfig } from '@/services/api';
+import { downloadMapConfig } from 'center-src/services/api';
 
 const canvasWidth = window.innerWidth;
 const canvasHeight = window.innerHeight;
