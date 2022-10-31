@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import RightContent from '../RightContent';
 
 import styles from './index.less';
+import imgHead from 'center-src/assets/images/platform_head.png';
 
 type PlatformHeaderProps = {
   back?: boolean;
@@ -25,7 +26,7 @@ const PlatformHeader: React.FC<PlatformHeaderProps> = ({
 }) => {
   return (
     <div className={classNames('header', styles.header)} style={{ position }}>
-      <img className={styles.header_image} src="/assets/images/platform_head.png" alt="" />
+      <img className={styles.header_image} src={imgHead} alt="" />
       <div className={classNames('f f-middle', styles.header_title)}>
         {t('OpenV2X Central Portal')}
       </div>

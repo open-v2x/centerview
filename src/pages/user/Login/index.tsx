@@ -2,10 +2,11 @@ import React from 'react';
 import { history, useModel } from 'umi';
 import { ProFormText, LoginForm } from '@ant-design/pro-form';
 import classNames from 'classnames';
-import { SelectLang } from '@/components/SelectLang';
-import { login } from '@/services/api';
-import { setToken } from '@/utils/storage';
-
+import { SelectLang } from 'center-src/components/SelectLang';
+import { login } from 'center-src/services/api';
+import { setToken } from 'center-src/utils/storage';
+import imgUser from 'center-src/assets/images/login_user.png';
+import imgPwd from 'center-src/assets/images/login_password.png';
 import styles from './index.less';
 
 const Login: React.FC = () => {
@@ -44,7 +45,7 @@ const Login: React.FC = () => {
           name="username"
           fieldProps={{
             size: 'large',
-            prefix: <img src="/assets/images/login_user.png" />,
+            prefix: <img src={imgUser} />,
           }}
           placeholder={t('Username')}
           rules={[{ required: true, message: t('Please input your username') }]}
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
           name="password"
           fieldProps={{
             size: 'large',
-            prefix: <img src="/assets/images/login_password.png" />,
+            prefix: <img src={imgPwd} />,
           }}
           placeholder={t('Password')}
           rules={[{ required: true, message: t('Please input your password') }]}

@@ -4,6 +4,11 @@ import proxy from './proxy';
 import routes from './routes';
 
 const { REACT_APP_ENV } = process.env;
+const path = require('path');
+
+const root = (p: string) => {
+  return path.resolve(__dirname, `../${p}`);
+};
 
 export default defineConfig({
   hash: true,
@@ -54,4 +59,7 @@ export default defineConfig({
       },
     ],
   ],
+  alias: {
+    'center-src': root('src'),
+  },
 });

@@ -5,7 +5,7 @@ import { Avatar, Menu, Spin } from 'antd';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
 import HeaderDropdown from '../HeaderDropdown';
-import { clearStorage } from '@/utils/storage';
+import { clearStorage } from 'center-src/utils/storage';
 
 import styles from './index.less';
 

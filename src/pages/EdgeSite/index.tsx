@@ -2,8 +2,9 @@ import React from 'react';
 import { history } from 'umi';
 import classNames from 'classnames';
 import { ProList } from '@ant-design/pro-list';
-import PlatformHeader from '@/components/PlatformHeader';
-import { edgeSiteList } from '@/services/api';
+import PlatformHeader from 'center-src/components/PlatformHeader';
+import { edgeSiteList } from 'center-src/services/api';
+import imgNavigate from 'center-src/assets/images/navigate.png';
 
 import styles from './index.less';
 
@@ -56,7 +57,7 @@ const EdgeSite: React.FC = () => {
                       onClick={() => history.push({ pathname: '/cloud', query: { id: `${id}` } })}
                     >
                       {t('Go to [Regional Edge Portal]')}
-                      <img src="/assets/images/navigate.png" alt="" />
+                      <img src={imgNavigate} alt="" />
                     </a>,
                   ];
                 },
