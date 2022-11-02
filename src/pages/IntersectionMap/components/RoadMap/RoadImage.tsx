@@ -40,7 +40,7 @@ const Track: React.FC<Point & { type: 'motor' | 'non-motor' | 'pedestrian'; rota
 
 const WarningImage: React.FC<Point> = ({ x, y }) => {
   const image = new Image();
-  image.src = '#center/images/event_warn.png';
+  image.src = 'center-src/assets/images/event_warn.png';
   const iconWidth = 15;
 
   return (
