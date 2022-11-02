@@ -5,6 +5,7 @@ import { MQTT } from 'center-src/utils/mqtt';
 import imgMotor from 'center-src/assets/images/motor.png';
 import imgNonMotor from 'center-src/assets/images/non_motor.png';
 import imgPedestrian from 'center-src/assets/images/pedestrian.png';
+import imgWarn from 'center-src/assets/images/event_warn.png';
 
 type Point = { x: number; y: number };
 
@@ -40,7 +41,7 @@ const Track: React.FC<Point & { type: 'motor' | 'non-motor' | 'pedestrian'; rota
 
 const WarningImage: React.FC<Point> = ({ x, y }) => {
   const image = new Image();
-  image.src = 'center-src/assets/images/event_warn.png';
+  image.src = imgWarn;
   const iconWidth = 15;
 
   return (
