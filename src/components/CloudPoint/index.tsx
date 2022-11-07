@@ -7,10 +7,11 @@ export interface CloudPointProps {
   width: number;
   height: number;
   isFixedAspect: boolean;
+  wsUrl: string;
 }
 
 const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
-  const { width, height, isFixedAspect = false } = props;
+  const { width, height, isFixedAspect = false, wsUrl } = props;
   const ws = useRef<WebSocket | null>(null);
   const timerRef = useRef<NodeJS.Timer>();
 
@@ -60,7 +61,7 @@ const CloudPoint: React.FC<CloudPointProps> = (props: CloudPointProps) => {
   // 初始化webSocket
   const initWebSocket = useCallback(() => {
     if (!ws.current) {
-      ws.current = new WebSocket(process.env.WEBSOCKET_URL!);
+      ws.current = new WebSocket(wsUrl);
       ws.current.onopen = () => {
         if (ws.current?.OPEN) {
           ws.current?.send('connected');

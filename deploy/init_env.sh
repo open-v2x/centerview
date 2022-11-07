@@ -24,7 +24,6 @@ do
   sed -i "s#MQTTPATH#${MQTT_PATH}#g" "$file"
   sed -i "s#MQTTUSERNAME#${MQTT_USERNAME}#g" "$file"
   sed -i "s#MQTTPASSWORD#${MQTT_PASSWORD}#g" "$file"
-  sed -i "s#WEBSOCKETURL#${WEBSOCKET_URL}#g" "$file"
 done
 
 ./docker-entrypoint.sh
