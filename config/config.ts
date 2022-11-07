@@ -42,7 +42,6 @@ export default defineConfig({
     'process.env.MQTT_USERNAME': 'MQTTUSERNAME',
     'process.env.MQTT_PASSWORD': 'MQTTPASSWORD',
     'process.env.AMAP_KEY': 'AMAPKEY',
-    'process.env.WEBSOCKET_URL': 'WEBSOCKETURL',
   },
   manifest: { basePath: '/' },
   // Fast Refresh 热更新

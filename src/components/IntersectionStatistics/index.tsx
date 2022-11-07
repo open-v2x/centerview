@@ -37,7 +37,11 @@ const DeviceOnlineRate = forwardRef(
       esn,
       showLiveStream,
       showCloudPoint,
-    }: { esn: string; showLiveStream: (url: string) => void; showCloudPoint: () => void },
+    }: {
+      esn: string;
+      showLiveStream: (url: string) => void;
+      showCloudPoint: (wsUrl: string) => void;
+    },
     ref,
   ) => {
     const [show, setShow] = useState(true);
@@ -54,7 +58,7 @@ const DeviceOnlineRate = forwardRef(
     const [curCameraIndex, setCameraIndex] = useState(0);
 
     // 雷达
-    const [lidars, setLidars] = useState<[]>([]);
+    const [lidars, setLidars] = useState<any>([]);
     const [curLidarIndex, setLidarIndex] = useState(0);
 
     const fetchOnlineRate = async () => {
@@ -79,6 +83,7 @@ const DeviceOnlineRate = forwardRef(
       const id = setInterval(() => {
         fetchOnlineRate();
         fetchCameras();
+        fetchLidars();
       }, 5000);
       return () => clearInterval(id);
     }, [fetchCameras, fetchLidars]);
@@ -91,7 +96,7 @@ const DeviceOnlineRate = forwardRef(
 
     const handleToCloudPoint = () => {
       if (lidars.length) {
-        showCloudPoint?.();
+        showCloudPoint?.(lidars[curLidarIndex].wsUrl);
       }
     };
 
@@ -297,6 +302,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
   const deviceOnlineRateRef: any = useRef(null);
 
   const [playLiveStreamUrl, setPlayLiveStreamUrl] = useState('');
+  const [wsUrl, setWsUrl] = useState('');
 
   const liveStreamFooter = () => {
     return cameraModalRef.current?.cameras?.length > 1 ? (
@@ -326,7 +332,8 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
     cameraModalRef.current?.handleShowModal();
   };
 
-  const showLiveCloudPointCallback = () => {
+  const showLiveCloudPointCallback = (url: string) => {
+    setWsUrl(url);
     cloudPointModalRef.current?.handleShowModal();
   };
 
@@ -353,7 +360,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
         ref={cloudPointModalRef}
         title={'展示云点图'}
         width={800}
-        component={<CloudPoint height={450} width={780} isFixedAspect={true} />}
+        component={<CloudPoint height={450} width={780} isFixedAspect={true} wsUrl={wsUrl} />}
         footer={null}
         onCloseCallback={null}
       />
