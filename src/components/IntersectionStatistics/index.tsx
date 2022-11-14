@@ -19,24 +19,20 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
   });
   const [wsUrl, setWsUrl] = useState('');
 
+  /**
+   * @description: 切换摄像头
+   * @param {boolean} isNext true: 下一个， false: 上一个
+   * @return {*}
+   */
+  const handleChangeCamera = async (isNext: boolean) => {
+    const getStream = await deviceOnlineRateRef.current?.changeCamera(isNext);
+    setPlayLiveStream(getStream);
+  };
+
   const footer = (
     <div>
-      <Button
-        onClick={() => {
-          const getStream = deviceOnlineRateRef.current?.changeCamera(false);
-          setPlayLiveStream(getStream);
-        }}
-      >
-        上一个
-      </Button>
-      <Button
-        onClick={() => {
-          const getStream = deviceOnlineRateRef.current?.changeCamera(true);
-          setPlayLiveStream(getStream);
-        }}
-      >
-        下一个
-      </Button>
+      <Button onClick={() => handleChangeCamera(false)}>上一个</Button>
+      <Button onClick={() => handleChangeCamera(true)}>下一个</Button>
     </div>
   );
 
