@@ -76,7 +76,7 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
             // try autoplay
             flvRef.current.play();
           }
-          message.error(info);
+          message.error(info?.msg);
         });
 
         if (onReady) {

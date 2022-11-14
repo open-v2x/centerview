@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { useImperativeHandle } from 'react';
 
@@ -44,11 +44,11 @@ const DeviceOnlineRate = forwardRef(
 
     // 摄像头
     const [cameras, setCameras] = useState<API.OnlineCameras[]>([]);
-    const [curCameraIndex, setCameraIndex] = useState(0);
+    const curCameraIndexRef = useRef(0);
 
     // 雷达
     const [lidars, setLidars] = useState<any>([]);
-    const [curLidarIndex, setLidarIndex] = useState(0);
+    const curLidarIndexRef = useRef(0);
 
     const fetchOnlineRate = async () => {
       const { data } = await onlineRate();
@@ -79,45 +79,66 @@ const DeviceOnlineRate = forwardRef(
 
     const handleToLiveStream = () => {
       if (cameras.length) {
-        showLiveStream?.(cameras[curCameraIndex].streamUrl, cameras[curCameraIndex].name);
+        const { streamUrl, name } = cameras[curCameraIndexRef.current];
+        showLiveStream?.(streamUrl, name);
       }
     };
 
     const handleToCloudPoint = () => {
       if (lidars.length) {
-        showCloudPoint?.(lidars[curLidarIndex].wsUrl);
+        const { wsUrl } = lidars[curLidarIndexRef.current];
+        showCloudPoint?.(wsUrl);
       }
     };
 
-    const handleChangeIndex = (isAdd: boolean, arr: any[], index: number, setFunc: any) => {
+    const handleChangeCamera = (isAdd: boolean) => {
+      const index = curCameraIndexRef.current;
       if (isAdd) {
-        if (index === arr.length - 1) {
-          setFunc(0);
+        if (index === cameras.length - 1) {
+          curCameraIndexRef.current = 0;
         } else {
-          setFunc(index + 1);
+          curCameraIndexRef.current = index + 1;
         }
       } else {
         if (index === 0) {
-          setFunc(arr.length - 1);
+          curCameraIndexRef.current = cameras.length - 1;
         } else {
-          setFunc(index - 1);
+          curCameraIndexRef.current = index - 1;
         }
       }
     };
 
-    const getNextCamera = () => handleChangeIndex(true, cameras, curCameraIndex, setCameraIndex);
-    const getPreCamera = () => handleChangeIndex(false, cameras, curCameraIndex, setCameraIndex);
-    const getNextLidar = () => handleChangeIndex(true, lidars, curLidarIndex, setLidarIndex);
-    const getPreLidar = () => handleChangeIndex(false, lidars, curLidarIndex, setLidarIndex);
+    const handleChangeLidar = (isAdd: boolean) => {
+      const index = curLidarIndexRef.current;
+      if (isAdd) {
+        if (index === lidars.length - 1) {
+          curLidarIndexRef.current = 0;
+        } else {
+          curLidarIndexRef.current = index + 1;
+        }
+      } else {
+        if (index === 0) {
+          curLidarIndexRef.current = lidars.length - 1;
+        } else {
+          curLidarIndexRef.current = index - 1;
+        }
+      }
+    };
+
+    const getNextCamera = () => handleChangeCamera(true);
+    const getPreCamera = () => handleChangeCamera(false);
+    const getNextLidar = () => handleChangeLidar(true);
+    const getPreLidar = () => handleChangeLidar(false);
 
     useImperativeHandle(ref, () => ({
-      changeCamera: (isAdd: boolean) => {
+      changeCamera: async (isAdd: boolean) => {
         if (isAdd) {
-          getNextCamera();
+          await getNextCamera();
         } else {
-          getPreCamera();
+          await getPreCamera();
         }
-        return { url: cameras[curCameraIndex]?.streamUrl, title: cameras[curCameraIndex]?.name };
+        const { streamUrl, name } = cameras[curCameraIndexRef.current];
+        return { url: streamUrl, title: name };
       },
       cameras: cameras,
       lidars: lidars,
@@ -132,7 +153,7 @@ const DeviceOnlineRate = forwardRef(
               className={classNames(styles.cursor_pointer, styles.mr_10)}
               onClick={() => handleToLiveStream()}
             >
-              {cameras[curCameraIndex]?.name || '---'}
+              {cameras[curCameraIndexRef.current]?.name || '---'}
             </span>
           </div>
           {cameras.length > 1 && (
@@ -154,7 +175,7 @@ const DeviceOnlineRate = forwardRef(
               className={classNames(styles.cursor_pointer, styles.mr_10)}
               onClick={() => handleToCloudPoint()}
             >
-              {lidars[curLidarIndex]?.name || '---'}
+              {lidars[curLidarIndexRef.current]?.name || '---'}
             </span>
           </div>
           {lidars.length > 1 && (
