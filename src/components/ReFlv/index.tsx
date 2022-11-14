@@ -23,6 +23,7 @@ export default function LiveStream(props: { url: string }) {
         liveBufferLatencyChasing: true,
         liveBufferLatencyMinRemain: 3,
         liveBufferLatencyMaxLatency: 5,
+        autoCleanupSourceBuffer: true,
       }}
       onReady={onReady}
     />

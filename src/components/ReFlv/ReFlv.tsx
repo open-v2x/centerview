@@ -1,5 +1,7 @@
+import { message } from 'antd';
+import { throttle } from 'lodash';
 import Mpegts from 'mpegts.js';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import cls from './reflv.module.less';
 
 interface FlvProps {
@@ -14,6 +16,7 @@ interface FlvProps {
 const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
   const flvRef = useRef<Mpegts.Player>();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [curSpeed, setCurSpeed] = useState(0);
 
   const initProgress = useCallback(() => {
     if (flvRef.current) {
@@ -32,6 +35,14 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
       } else {
         videoRef.current!.playbackRate = 0.8;
       }
+
+      flvRef.current.on(Mpegts.Events.STATISTICS_INFO, (info) => {
+        const { speed = 0 } = info;
+
+        throttle(() => {
+          setCurSpeed(speed.toFixed(1));
+        }, 500);
+      });
     }
   }, []);
 
@@ -45,15 +56,17 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
 
   const CreatePlayer = useCallback(() => {
     const { data, config, onReady } = props;
+
     if (Mpegts.getFeatureList().mseLivePlayback) {
       flvRef.current = Mpegts.createPlayer(data, config);
+
       if (videoRef.current) {
         flvRef.current.attachMediaElement(videoRef.current);
         flvRef.current.load();
         videoRef.current.addEventListener('progress', initProgress, false);
 
-        flvRef.current.on('error', (e) => {
-          if (e === Mpegts.ErrorDetails.NETWORK_UNRECOVERABLE_EARLY_EOF) {
+        flvRef.current.on(Mpegts.Events.ERROR, (type, detail, info) => {
+          if (type === Mpegts.ErrorDetails.NETWORK_UNRECOVERABLE_EARLY_EOF) {
             flvRef.current?.destroy();
 
             flvRef.current = Mpegts.createPlayer(data, config);
@@ -63,6 +76,7 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
             // try autoplay
             flvRef.current.play();
           }
+          message.error(info);
         });
 
         if (onReady) {
@@ -86,8 +100,10 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
       <video
         controls={true}
         ref={videoRef}
+        muted
         controlsList={'nodownload noremoteplayback noplaybackrate'}
       />
+      <div className={cls.flv_player_content_speed}>{curSpeed} KB/S </div>
     </div>
   );
 };
