@@ -44,11 +44,11 @@ const DeviceOnlineRate = forwardRef(
 
     // 摄像头
     const [cameras, setCameras] = useState<API.OnlineCameras[]>([]);
-    const curCameraIndexRef = useRef(0);
-
+    const [cameraIndex, setCameraIndex] = useState(0);
+    const cameraIndexRef = useRef(0);
     // 雷达
     const [lidars, setLidars] = useState<any>([]);
-    const curLidarIndexRef = useRef(0);
+    const [lidarIndex, setLidarIndex] = useState(0);
 
     const fetchOnlineRate = async () => {
       const { data } = await onlineRate();
@@ -79,48 +79,50 @@ const DeviceOnlineRate = forwardRef(
 
     const handleToLiveStream = () => {
       if (cameras.length) {
-        const { streamUrl, name } = cameras[curCameraIndexRef.current];
+        const { streamUrl, name } = cameras[cameraIndex];
         showLiveStream?.(streamUrl, name);
       }
     };
 
     const handleToCloudPoint = () => {
       if (lidars.length) {
-        const { wsUrl } = lidars[curLidarIndexRef.current];
+        const { wsUrl } = lidars[lidarIndex];
         showCloudPoint?.(wsUrl);
       }
     };
 
     const handleChangeCamera = (isAdd: boolean) => {
-      const index = curCameraIndexRef.current;
       if (isAdd) {
-        if (index === cameras.length - 1) {
-          curCameraIndexRef.current = 0;
+        if (cameraIndex === cameras.length - 1) {
+          cameraIndexRef.current = 0;
+          setCameraIndex(0);
         } else {
-          curCameraIndexRef.current = index + 1;
+          cameraIndexRef.current = cameraIndex + 1;
+          setCameraIndex(cameraIndex + 1);
         }
       } else {
-        if (index === 0) {
-          curCameraIndexRef.current = cameras.length - 1;
+        if (cameraIndex === 0) {
+          cameraIndexRef.current = cameras.length - 1;
+          setCameraIndex(cameras.length - 1);
         } else {
-          curCameraIndexRef.current = index - 1;
+          cameraIndexRef.current = cameraIndex - 1;
+          setCameraIndex(cameraIndex - 1);
         }
       }
     };
 
     const handleChangeLidar = (isAdd: boolean) => {
-      const index = curLidarIndexRef.current;
       if (isAdd) {
-        if (index === lidars.length - 1) {
-          curLidarIndexRef.current = 0;
+        if (lidarIndex === lidars.length - 1) {
+          setLidarIndex(0);
         } else {
-          curLidarIndexRef.current = index + 1;
+          setLidarIndex(lidarIndex + 1);
         }
       } else {
-        if (index === 0) {
-          curLidarIndexRef.current = lidars.length - 1;
+        if (lidarIndex === 0) {
+          setLidarIndex(lidars.length - 1);
         } else {
-          curLidarIndexRef.current = index - 1;
+          setLidarIndex(lidarIndex - 1);
         }
       }
     };
@@ -131,13 +133,13 @@ const DeviceOnlineRate = forwardRef(
     const getPreLidar = () => handleChangeLidar(false);
 
     useImperativeHandle(ref, () => ({
-      changeCamera: async (isAdd: boolean) => {
+      changeCamera: (isAdd: boolean) => {
         if (isAdd) {
-          await getNextCamera();
+          getNextCamera();
         } else {
-          await getPreCamera();
+          getPreCamera();
         }
-        const { streamUrl, name } = cameras[curCameraIndexRef.current];
+        const { streamUrl, name } = cameras[cameraIndexRef.current];
         return { url: streamUrl, title: name };
       },
       cameras: cameras,
@@ -153,7 +155,7 @@ const DeviceOnlineRate = forwardRef(
               className={classNames(styles.cursor_pointer, styles.mr_10)}
               onClick={() => handleToLiveStream()}
             >
-              {cameras[curCameraIndexRef.current]?.name || '---'}
+              {cameras[cameraIndex]?.name || '---'}
             </span>
           </div>
           {cameras.length > 1 && (
@@ -175,7 +177,7 @@ const DeviceOnlineRate = forwardRef(
               className={classNames(styles.cursor_pointer, styles.mr_10)}
               onClick={() => handleToCloudPoint()}
             >
-              {lidars[curLidarIndexRef.current]?.name || '---'}
+              {lidars[lidarIndex]?.name || '---'}
             </span>
           </div>
           {lidars.length > 1 && (

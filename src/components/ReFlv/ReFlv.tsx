@@ -1,5 +1,4 @@
 import { message } from 'antd';
-import { throttle } from 'lodash';
 import Mpegts from 'mpegts.js';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import cls from './reflv.module.less';
@@ -38,10 +37,7 @@ const ReFlv: React.FC<FlvProps> = (props: FlvProps) => {
 
       flvRef.current.on(Mpegts.Events.STATISTICS_INFO, (info) => {
         const { speed = 0 } = info;
-
-        throttle(() => {
-          setCurSpeed(speed.toFixed(1));
-        }, 500);
+        setCurSpeed(speed.toFixed(1));
       });
     }
   }, []);
