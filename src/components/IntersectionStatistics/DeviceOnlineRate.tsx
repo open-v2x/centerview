@@ -49,6 +49,7 @@ const DeviceOnlineRate = forwardRef(
     // 雷达
     const [lidars, setLidars] = useState<any>([]);
     const [lidarIndex, setLidarIndex] = useState(0);
+    const lidarIndexRef = useRef(0);
 
     const fetchOnlineRate = async () => {
       const { data } = await onlineRate();
@@ -95,36 +96,34 @@ const DeviceOnlineRate = forwardRef(
       if (isAdd) {
         if (cameraIndex === cameras.length - 1) {
           cameraIndexRef.current = 0;
-          setCameraIndex(0);
         } else {
           cameraIndexRef.current = cameraIndex + 1;
-          setCameraIndex(cameraIndex + 1);
         }
       } else {
         if (cameraIndex === 0) {
           cameraIndexRef.current = cameras.length - 1;
-          setCameraIndex(cameras.length - 1);
         } else {
           cameraIndexRef.current = cameraIndex - 1;
-          setCameraIndex(cameraIndex - 1);
         }
       }
+      setCameraIndex(cameraIndexRef.current);
     };
 
     const handleChangeLidar = (isAdd: boolean) => {
       if (isAdd) {
         if (lidarIndex === lidars.length - 1) {
-          setLidarIndex(0);
+          lidarIndexRef.current = 0;
         } else {
-          setLidarIndex(lidarIndex + 1);
+          lidarIndexRef.current = lidarIndex + 1;
         }
       } else {
         if (lidarIndex === 0) {
-          setLidarIndex(lidars.length - 1);
+          lidarIndexRef.current = lidars.length - 1;
         } else {
-          setLidarIndex(lidarIndex - 1);
+          lidarIndexRef.current = lidarIndex - 1;
         }
       }
+      setLidarIndex(lidarIndexRef.current);
     };
 
     const getNextCamera = () => handleChangeCamera(true);
