@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import DisplayModal from '../DisplayModal';
 import LiveStream from 'center-src/components/ReFlv';
@@ -24,10 +24,10 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
    * @param {boolean} isNext true: 下一个， false: 上一个
    * @return {*}
    */
-  const handleChangeCamera = async (isNext: boolean) => {
+  const handleChangeCamera = useCallback(async (isNext: boolean) => {
     const getStream = await deviceOnlineRateRef.current?.changeCamera(isNext);
     setPlayLiveStream(getStream);
-  };
+  }, []);
 
   const footer = (
     <div>
