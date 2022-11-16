@@ -2,8 +2,8 @@ FROM node:14-alpine AS builder
 
 COPY ./ /root/centerview/
 WORKDIR /root/centerview
-RUN yarn config set registry https://registry.npmmirror.com/ \
-  && yarn config set network-timeout 300000 \
+RUN yarn config set network-timeout 300000 \
+  # && yarn config set registry https://registry.npmmirror.com/ \
   && yarn install \
   && yarn run build
 
