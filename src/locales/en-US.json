@@ -29,5 +29,7 @@
   "Edge Site Name": "Edge Site Name",
   "Free flow": "Free flow",
   "Congestion": "Congestion",
-  "SPAT": "SPAT"
+  "SPAT": "SPAT",
+  "Point Cloud": "Point Cloud",
+  "Show Camera": "Camera"
 }
