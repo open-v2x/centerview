@@ -68,7 +68,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
 
       <DisplayModal
         ref={cameraModalRef}
-        title={`展示视频 —— ${playLiveStream.title}`}
+        title={`${t('Show Camera')} —— ${playLiveStream.title}`}
         width={800}
         component={<LiveStream url={playLiveStream.url} />}
         footer={liveStreamFooter()}
@@ -77,7 +77,7 @@ const IntersectionStatistics: React.FC<{ esn: string }> = ({ esn }) => {
 
       <DisplayModal
         ref={cloudPointModalRef}
-        title={'展示云点图'}
+        title={t('Point Cloud')}
         width={800}
         component={<CloudPoint height={450} width={780} isFixedAspect={true} wsUrl={wsUrl} />}
         footer={lidarStreamFooter()}
