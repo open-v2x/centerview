@@ -27,7 +27,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: openv2x/centerview:latest
+          tags: openv2x/centerview:beihai
           build-args: |
             GIT_BRANCH=${{ github.ref_name }}
             REPO_URL=https://github.com/open-v2x/centerview
@@ -48,9 +48,9 @@ jobs:
             set -e
 
             (docker images | grep none | awk '{print $3}' | xargs -I{} docker rmi -f {}) || true
-            docker pull openv2x/centerview:latest
-            docker tag openv2x/centerview:latest registry.cn-shanghai.aliyuncs.com/openv2x/centerview:latest
-            docker push registry.cn-shanghai.aliyuncs.com/openv2x/centerview:latest
+            docker pull openv2x/centerview:beihai
+            docker tag openv2x/centerview:beihai registry.cn-shanghai.aliyuncs.com/openv2x/centerview:beihai
+            docker push registry.cn-shanghai.aliyuncs.com/openv2x/centerview:beihai
 
   ssh:
     needs: acr
