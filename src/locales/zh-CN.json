@@ -29,5 +29,7 @@
   "Edge Site Name": "边缘站点名称",
   "Free flow": "自由流",
   "Congestion": "拥堵",
-  "SPAT": "信号灯"
+  "SPAT": "信号灯",
+  "Point Cloud": "展示点云图",
+  "Show Camera": "展示视频"
 }
