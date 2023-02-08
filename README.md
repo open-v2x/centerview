@@ -1,3 +1,6 @@
+# [Deprecated] Move to https://github.com/open-v2x/omega
+
+
 # OpenV2X Centerview
 
 > Centerview is OpenV2X central portal
